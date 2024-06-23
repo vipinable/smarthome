@@ -1,10 +1,9 @@
-version: '3'
 services:
   esphome:
     container_name: esphome
     image: ghcr.io/esphome/esphome:2024.5.5
     volumes:
-      - /home/pi/esphome/config:/config
+      - /home/pi/homeassistant/esphome/config:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
@@ -16,21 +15,21 @@ services:
     container_name: nlhome
     image: ghcr.io/home-assistant/home-assistant:2024.3.0
     volumes:
-      - /home/pi/nlhome/config:/config
+      - /home/pi/homeassistant/nlhome/config:/config
       - /run/dbus:/run/dbus:ro
     restart: unless-stopped
     privileged: true
     network_mode: host
     environment:
       TZ: "Europe/Amsterdam"
-  unniplaza:
-    container_name: unniplaza
-    image: ghcr.io/home-assistant/home-assistant:2024.3.0
-    volumes:
-      - /home/pi/unniplaza/config:/config
-      - /run/dbus:/run/dbus:ro
-    restart: unless-stopped
-    privileged: true
+  homebridge:
+    image: homebridge/homebridge:latest
+    restart: always
     network_mode: host
-    environment:
-      TZ: "Asia/Kolkata"
+    volumes:
+      - /home/pi/homeassistant/homebridge:/homebridge
+    logging:
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
