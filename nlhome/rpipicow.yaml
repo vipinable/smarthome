@@ -1,0 +1,91 @@
+esphome:
+  name: rpipicow
+  friendly_name: rpipicow
+
+rp2040:
+  board: rpipicow
+  framework:
+    # Required until https://github.com/platformio/platform-raspberrypi/pull/36 is merged
+    platform_version: https://github.com/maxgerhardt/platform-raspberrypi.git
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "uOnFHwLuTe/5AXLB8L5ZOp2Gp6GMScrg3kqvjuXcpyg="
+
+ota:
+  password: "772c00d9ea0445980c2aafcd0ef4afe4"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 192.168.1.130
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot in case wifi connection fails
+  ap:
+    ssid: "Rpipicow Fallback Hotspot"
+    password: "AbcXkTJ2YZsM"
+    
+binary_sensor:
+  - platform: status
+    name: "PicoLight"
+  - platform: gpio
+    pin:
+      number: 13
+      inverted: true
+      mode:
+        input: true
+        pullup: true 
+    name: "Pin13"
+
+switch:
+  - platform: gpio
+    pin: GPIO14
+    inverted: False
+    name: "gpio14out"
+    id: picolight 
+  - platform: gpio
+    pin: GPIO15
+    inverted: False
+    name: "gpio15out"
+    id: picolight1 
+
+sensor:
+  - platform: adc
+    pin: TEMPERATURE
+    name: "Core Temperature"
+    unit_of_measurement: "°C"
+    filters:
+      - lambda: return 27 - (x - 0.706f) / 0.001721f;
+  - platform: adc
+    pin: GPIO26
+    name: "ADC Voltage"
+    unit_of_measurement: "V"
+  - platform: pulse_counter
+    pin:
+      number: 16
+      inverted: true
+      mode:
+        input: true
+        pulldown: true 
+    name: "Pin16"
+    total:
+      unit_of_measurement: 'L'
+      name: '16Volume'
+  - platform: pulse_counter
+    pin:
+      number: 17
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Pin17"
+    total:
+      unit_of_measurement: 'L'
+      name: '17Volume'
