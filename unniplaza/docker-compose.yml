@@ -1,0 +1,12 @@
+services:
+  unniplaza:
+    container_name: unniplaza
+    image: ghcr.io/home-assistant/home-assistant:2024.3.0
+    volumes:
+      - /home/pi/homeassistant/unniplaza/config:/config
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      TZ: "Asia/Kolkata"
