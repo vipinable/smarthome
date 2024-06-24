@@ -22,7 +22,7 @@ export class main extends Stack {
       enabled: true,
       abortIncompleteMultipartUploadAfter: Duration.minutes(30),
       expiredObjectDeleteMarker: false,
-      noncurrentVersionExpiration: cdk.Duration.minutes(30),
+      noncurrentVersionExpiration: Duration.minutes(30),
       prefix: 'backups/',
     };
 
