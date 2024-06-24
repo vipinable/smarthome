@@ -20,7 +20,7 @@ export class main extends Stack {
     const lifecycleRuleDefault: s3.LifecycleRule = {
       id: 'lifecycleRuleDefault',
       enabled: true,
-      abortIncompleteMultipartUploadAfter: cdk.Duration.minutes(30),
+      abortIncompleteMultipartUploadAfter: Duration.minutes(30),
       expiredObjectDeleteMarker: false,
       noncurrentVersionExpiration: cdk.Duration.minutes(30),
       prefix: 'backups/',
@@ -29,14 +29,14 @@ export class main extends Stack {
     const lifecycleRuleDaily: s3.LifecycleRule = {
       id: 'lifecycleRuleDaily',
       enabled: true,
-      expiration: cdk.Duration.days(7),
+      expiration: Duration.days(7),
       prefix: 'backups/daily/',
     };
 
     const lifecycleRuleWeekly: s3.LifecycleRule = {
       id: 'lifecycleRuleWeekly',
       enabled: true,
-      expiration: cdk.Duration.days(30),
+      expiration: Duration.days(30),
       expiredObjectDeleteMarker: false,
       prefix: 'backups/weekly/',
     };
@@ -44,7 +44,7 @@ export class main extends Stack {
     const lifecycleRuleMonthly: s3.LifecycleRule = {
       id: 'lifecycleRuleMonthly',
       enabled: true,
-      expiration: cdk.Duration.days(365),
+      expiration: Duration.days(365),
       expiredObjectDeleteMarker: false,
       prefix: 'backups/monthly/',
     };
