@@ -16,12 +16,50 @@ export class main extends Stack {
   //BeginStackDefinition
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+    
+    const lifecycleRuleDefault: s3.LifecycleRule = {
+      id: 'lifecycleRuleDefault',
+      enabled: true,
+      abortIncompleteMultipartUploadAfter: cdk.Duration.minutes(30),
+      expiredObjectDeleteMarker: false,
+      noncurrentVersionExpiration: cdk.Duration.minutes(30),
+      prefix: 'backups/',
+    };
+
+    const lifecycleRuleDaily: s3.LifecycleRule = {
+      id: 'lifecycleRuleDaily',
+      enabled: true,
+      expiration: cdk.Duration.days(7),
+      prefix: 'backups/daily/',
+    };
+
+    const lifecycleRuleWeekly: s3.LifecycleRule = {
+      id: 'lifecycleRuleWeekly',
+      enabled: true,
+      expiration: cdk.Duration.days(30),
+      expiredObjectDeleteMarker: false,
+      prefix: 'backups/weekly/',
+    };
+
+    const lifecycleRuleMonthly: s3.LifecycleRule = {
+      id: 'lifecycleRuleMonthly',
+      enabled: true,
+      expiration: cdk.Duration.days(365),
+      expiredObjectDeleteMarker: false,
+      prefix: 'backups/monthly/',
+    };
 
     const s3Bucket = new s3.Bucket(this, 'smarthome', {
       objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
       enforceSSL: true,
+      lifecycleRules: [
+        lifecycleRuleDefault,
+        lifecycleRuleDaily,
+        lifecycleRuleWeekly,
+        lifecycleRuleMonthly
+      ]
     });
 
     s3Bucket.grantRead(new iam.AccountRootPrincipal());
