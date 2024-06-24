@@ -10,7 +10,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.A_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.S_KEY }}
   AWS_DEFAULT_REGION: "us-east-1"
-  StackName: ${{ env.APPNAME }}-${{ env.ENVNAME }}
+  StackName: ${{ vars.APPNAME }}-${{ vars.ENVNAME }}
   
 jobs:
   build:
