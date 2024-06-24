@@ -26,28 +26,28 @@ export class main extends Stack {
       prefix: 'backups/',
     };
 
-    // const lifecycleRuleDaily: s3.LifecycleRule = {
-    //   id: 'lifecycleRuleDaily',
-    //   enabled: true,
-    //   expiration: Duration.days(7),
-    //   prefix: 'backups/daily/',
-    // };
+    const lifecycleRuleDaily: s3.LifecycleRule = {
+      id: 'lifecycleRuleDaily',
+      enabled: true,
+      expiration: Duration.days(7),
+      prefix: 'backups/daily/',
+    };
 
-    // const lifecycleRuleWeekly: s3.LifecycleRule = {
-    //   id: 'lifecycleRuleWeekly',
-    //   enabled: true,
-    //   expiration: Duration.days(30),
-    //   expiredObjectDeleteMarker: false,
-    //   prefix: 'backups/weekly/',
-    // };
+    const lifecycleRuleWeekly: s3.LifecycleRule = {
+      id: 'lifecycleRuleWeekly',
+      enabled: true,
+      expiration: Duration.days(30),
+      expiredObjectDeleteMarker: false,
+      prefix: 'backups/weekly/',
+    };
 
-    // const lifecycleRuleMonthly: s3.LifecycleRule = {
-    //   id: 'lifecycleRuleMonthly',
-    //   enabled: true,
-    //   expiration: Duration.days(365),
-    //   expiredObjectDeleteMarker: false,
-    //   prefix: 'backups/monthly/',
-    // };
+    const lifecycleRuleMonthly: s3.LifecycleRule = {
+      id: 'lifecycleRuleMonthly',
+      enabled: true,
+      expiration: Duration.days(365),
+      expiredObjectDeleteMarker: false,
+      prefix: 'backups/monthly/',
+    };
 
     const s3Bucket = new s3.Bucket(this, 'smarthome', {
       objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
@@ -56,9 +56,9 @@ export class main extends Stack {
       enforceSSL: true,
       lifecycleRules: [
         lifecycleRuleDefault,
-        // lifecycleRuleDaily,
-        // lifecycleRuleWeekly,
-        // lifecycleRuleMonthly
+        lifecycleRuleDaily,
+        lifecycleRuleWeekly,
+        lifecycleRuleMonthly
       ]
     });
 
