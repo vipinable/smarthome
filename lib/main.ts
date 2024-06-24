@@ -66,7 +66,7 @@ export class main extends Stack {
     s3Bucket.grantRead(new iam.AccountRootPrincipal());
     s3Bucket.grantPut(new iam.AccountRootPrincipal());
 
-    const smarthomedb = new dynamodb.Table(stack, 'smarthomedb', {
+    const smarthomedb = new dynamodb.Table(this, 'smarthomedb', {
       partitionKey: {
         name: 'id',
         type: dynamodb.AttributeType.STRING,
