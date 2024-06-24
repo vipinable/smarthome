@@ -10,13 +10,12 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.A_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.S_KEY }}
   AWS_DEFAULT_REGION: "us-east-1"
-  StackName: ${{ vars.APPNAME }}-${{ vars.ENVNAME }}
   
 jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: all
+    environment: stage
     defaults:
       run:
         shell: bash
@@ -25,10 +24,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      - name: Display variables
+        run: echo ${{vars.APPNAME }}-${{ vars.ENVNAME}} 
       - name: Check aws cli
         run: aws --version && aws sts get-caller-identity --query Account --output text
       - name: update npm package
-        run: npm install -g npm@9.3.1
+        run: npm install -g npm@latest
       - name: install aws cdk package
         run: npm install -g aws-cdk && cdk --version
       - name: Check running versions
