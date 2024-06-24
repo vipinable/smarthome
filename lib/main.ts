@@ -26,4 +26,6 @@ export class main extends Stack {
 
     s3Bucket.grantRead(new iam.AccountRootPrincipal());
     s3Bucket.grantPut(new iam.AccountRootPrincipal());
+    
+  }}
           
