@@ -20,9 +20,9 @@ export class main extends Stack {
     const lifecycleRuleDefault: s3.LifecycleRule = {
       id: 'lifecycleRuleDefault',
       enabled: true,
-      abortIncompleteMultipartUploadAfter: Duration.minutes(30),
+      abortIncompleteMultipartUploadAfter: Duration.days(1),
       expiredObjectDeleteMarker: false,
-      noncurrentVersionExpiration: Duration.minutes(30),
+      noncurrentVersionExpiration: Duration.days(1),
       prefix: 'backups/',
     };
 
