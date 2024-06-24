@@ -56,9 +56,9 @@ export class main extends Stack {
       enforceSSL: true,
       lifecycleRules: [
         lifecycleRuleDefault,
-        lifecycleRuleDaily,
-        lifecycleRuleWeekly,
-        lifecycleRuleMonthly
+        // lifecycleRuleDaily,
+        // lifecycleRuleWeekly,
+        // lifecycleRuleMonthly
       ]
     });
 
