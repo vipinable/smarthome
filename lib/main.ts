@@ -75,3 +75,15 @@ export class main extends Stack {
     
   }}
           
+    //Index function definition
+    const mainfn = new lambda.Function(this, 'homeassistantfn', {
+      description: 'Function sends email using SES',
+      runtime: lambda.Runtime.PYTHON_3_8,
+      handler: 'main.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../src')),
+      // layers: [layer0],
+      environment: {
+        APPNAME: process.env.ApplicationName!,
+        ENVNAME: process.env.Environment!, 
+      },
+      });
