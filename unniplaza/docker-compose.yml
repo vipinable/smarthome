@@ -1,0 +1,38 @@
+services:
+  homebridge:
+    image: homebridge/homebridge:latest
+    restart: always
+    network_mode: host
+    dns:
+      - 8.8.4.4
+      - 8.8.8.8
+    volumes:
+      - /home/pi/homeassistant/homebridge:/homebridge
+    logging:
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:2024.11.0
+    volumes:
+      - /home/pi/homeassistant/esphome/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      - USERNAME=admin
+      - PASSWORD=ChangeMe
+  unniplaza:
+    container_name: unniplaza
+    image: ghcr.io/home-assistant/home-assistant:2024.3.0
+    volumes:
+      - /home/pi/homeassistant/homeasistnt/config:/config
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      TZ: "Asia/Kolkata"
