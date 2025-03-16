@@ -1,8 +1,8 @@
 #!/bin/bash
 #backup script for homeassistant data
-BACKUPFILE="/dev/shm/homeassiatant-$(date +%Y%m%d).tar.gz"
+BACKUPFILE="/dev/shm/smarthome-$(hostname)-$(date +%Y%m%d).tar.gz"
 cd /home/pi/homeassistant
-sudo tar -zcvf ${BACKUPFILE} esphome/config/*.yaml homebridge nlhome/config unniplaza/config
+sudo tar -zcvf ${BACKUPFILE} esphome/config/*.yaml homebridge/backups nlhome unniplaza
 #Upload backup to 
 scp  ${BACKUPFILE} ubuntu@www.theworkingmethods.com:/home/ubuntu/datavol/homeassistant/daily/
 #Upload backup to weekly folder as weekly backup

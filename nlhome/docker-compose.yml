@@ -23,11 +23,14 @@ services:
     environment:
       TZ: "Europe/Amsterdam"
   homebridge:
-    image: homebridge/homebridge:latest
+    image: homebridge/homebridge:2024-06-27
     restart: always
     network_mode: host
     volumes:
       - /home/pi/homeassistant/homebridge:/homebridge
+    environment:
+      TZ: "Europe/Amsterdam"
+      ENABLE_AVAHI: 1
     logging:
       driver: json-file
       options:
